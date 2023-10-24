@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {FormConfigInterface} from "./form-config.interface";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {max, Subscription} from "rxjs";
+import {FormConfigTypeEnum} from "./form-config-type.enum";
 
 @Component({
   selector: 'app-dynamic-form',
@@ -38,7 +39,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   private initForm() {
     this.formConfig.forEach((field: FormConfigInterface) => {
-      if (field.type === 'text') {
+      if (field.type === FormConfigTypeEnum.Text) {
         const control: FormControl = this.formBuilder.control('', [Validators.required]);
         if (field.options?.length) {
           control.addValidators(Validators.maxLength(field.options.length));
@@ -52,5 +53,9 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         this.form.addControl(field.label, control);
       }
     })
+  }
+
+  get FormConfigTypeEnum() {
+    return FormConfigTypeEnum;
   }
 }
