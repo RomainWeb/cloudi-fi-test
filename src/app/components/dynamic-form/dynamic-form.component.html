@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <div *ngFor="let field of formConfig">
+    <div class="form-group" *ngIf="field.type === 'text'">
+      <label [for]="field.label">{{ field.label }}</label>
+      <input
+        [type]="field.type"
+        [placeholder]="field.placeholder || field.options?.placeholder ?? 'text here...'"
+        [formControlName]="field.label"
+      />
+      <span *ngIf="form.controls[field.label].errors">Something wrong!</span>
+    </div>
+    <app-address-form formGroupName="address" *ngIf="field.type === 'address'"></app-address-form>
+  </div>
+</form>
