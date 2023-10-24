@@ -13,7 +13,24 @@
         [formControlName]="field.label"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       />
-      <span class="mt-2 text-sm text-red-500" *ngIf="form.controls[field.label].errors">Something wrong!</span>
+      <span
+        class="mt-2 text-sm text-red-500"
+        *ngIf="form.controls[field.label].errors?.['required'] && (form.controls[field.label].dirty || form.controls[field.label].touched)"
+      >
+        this field is required
+      </span>
+      <span
+        class="mt-2 text-sm text-red-500"
+        *ngIf="form.controls[field.label].errors?.['minlength'] && (form.controls[field.label].dirty || form.controls[field.label].touched)"
+      >
+        This field must contain at least 5 characters
+      </span>
+      <span
+        class="mt-2 text-sm text-red-500"
+        *ngIf="form.controls[field.label].errors?.['maxlength'] && (form.controls[field.label].dirty || form.controls[field.label].touched)"
+      >
+        This field must contain a maximum of 5 characters
+      </span>
 
     </div>
     <app-address-form formGroupName="address" *ngIf="field.type === 'address'"></app-address-form>
