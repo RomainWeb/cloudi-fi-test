@@ -11,6 +11,7 @@
         [type]="field.type"
         [placeholder]="field.placeholder || field.options?.placeholder ?? 'text here...'"
         [formControlName]="field.label"
+        [ngClass]="{'border-red-300': form.controls[field.label].errors && (form.controls[field.label].dirty || form.controls[field.label].touched) }"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       />
       <span
@@ -30,6 +31,12 @@
         *ngIf="form.controls[field.label].errors?.['maxlength'] && (form.controls[field.label].dirty || form.controls[field.label].touched)"
       >
         This field must contain a maximum of 5 characters
+      </span>
+      <span
+        class="mt-2 text-sm text-red-500"
+        *ngIf="form.controls[field.label].errors?.['pattern'] && (form.controls[field.label].dirty || form.controls[field.label].touched)"
+      >
+        This field must a numeric
       </span>
 
     </div>
