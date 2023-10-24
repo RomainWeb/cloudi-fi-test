@@ -18,6 +18,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   constructor(private readonly formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
+      // TODO extract address formGroup to an array add push this if type is address
       address: this.formBuilder.group({
         street: [],
         country: [],
@@ -47,12 +48,16 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
           control.updateValueAndValidity();
         }
         if (field.options?.valueType === 'numeric') {
+          // TODO extract regex rules in an external Validator
           control.addValidators(Validators.pattern("^[0-9]*$"),);
           control.updateValueAndValidity();
         }
         this.form.addControl(field.label, control);
       }
+      if (field.type === FormConfigTypeEnum.Text) {}
     })
+
+
   }
 
   get FormConfigTypeEnum() {
